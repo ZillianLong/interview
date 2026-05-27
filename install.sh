@@ -17,12 +17,15 @@ if [[ ! -d "$SKILLS_SRC" ]]; then
 fi
 
 mkdir -p "$DEST"
-for d in "$SKILLS_SRC"/*/; do
-  name="$(basename "$d")"
-  rm -rf "$DEST/$name"
-  cp -R "$d" "$DEST/$name"
-  echo "installed skill: $DEST/$name"
-done
+SKILL_NAME="psych-interview-risk-recording"
+d="$SKILLS_SRC/$SKILL_NAME"
+if [[ ! -d "$d" ]]; then
+  echo "错误: 未找到 $d" >&2
+  exit 1
+fi
+rm -rf "$DEST/$SKILL_NAME"
+cp -R "$d" "$DEST/$SKILL_NAME"
+echo "installed skill: $DEST/$SKILL_NAME"
 
 mkdir -p "$ROOT/效果验证/面试记录" "$ROOT/效果验证/专家材料反馈"
 
